@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digvijay's Portfolio</title>
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-image: url(bg3.jpg);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+            color: #007bf7;
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: hidden;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+            background-color: #004f4f;
+            padding: 0 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: top 0.3s;
+            /* Smooth transition for appearing/disappearing */
+        }
+
+        nav.hidden {
+            top: -80px;
+            /* Move up to hide */
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            list-style: none;
+            margin: 0 23px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: rgb(236, 233, 227);
+            transition: color 0.3s;
+            display: block;
+            /* Ensure links take full height of their parent for easy clicking */
+            padding: 20px 10px;
+            /* Increase clickable area */
+        }
+
+        nav ul li a:hover {
+            color: wheat;
+            font-size: 1.1rem;
+        }
+
+        main {
+            margin-top: 80px;
+            /* Compensate for fixed nav height */
+            padding-top: 20px;
+            /* Add space above sections to avoid overlap with nav */
+        }
+
+        main hr {
+            border: 0;
+            background-color: #9c97f1;
+            height: 1.2px;
+            margin: 40px 84px;
+        }
+
+        .left {
+            font-size: 2rem;
+        }
+
+        .firstSection {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 30px 0;
+        }
+
+        .firstSection>div {
+            width: 40%;
+        }
+
+        .leftSection {
+            font-size: 2.5rem;
+        }
+
+        .rightSection img {
+            width: 70%;
+            margin: -50px 0;
+        }
+
+        .purple {
+            color: rgb(144, 75, 209);
+        }
+
+        #element {
+            color: rgb(144, 75, 209);
+        }
+
+        .section {
+            max-width: 80vw;
+            margin: auto;
+            padding: 60px 0;
+        }
+
+        .section h1 {
+            font-size: 2rem;
+            color: rgb(144, 75, 209);
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: rgb(144, 75, 209);
+            transition: width 0.5s, left 0.5s;
+        }
+
+        .section h1:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .section h2 {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            color: rgb(93, 93, 213);
+        }
+
+        .section p,
+        .section ul {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            line-height: 1.6;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .section ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .section ul li {
+            list-style: disc;
+            margin-bottom: 5px;
+        }
+
+        .resume-content {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: rgb(93, 93, 213);
+            opacity: 1 !important;
+        }
+
+        .button {
+            --width: 100px;
+            --height: 35px;
+            --tooltip-height: 35px;
+            --tooltip-width: 90px;
+            --gap-between-tooltip-to-button: 18px;
+            --button-color: #1163ff;
+            --tooltip-color: #fff;
+            width: var(--width);
+            height: var(--height);
+            background: var(--button-color);
+            position: relative;
+            text-align: center;
+            border-radius: 0.45em;
+            font-family: "Arial";
+            transition: background 0.3s;
+            cursor: pointer;
+            /* Added cursor pointer */
+        }
+
+        .button::before {
+            position: absolute;
+            content: attr(data-tooltip);
+            width: var(--tooltip-width);
+            height: var(--tooltip-height);
+            background-color: var(--tooltip-color);
+            font-size: 0.9rem;
+            color: #111;
+            border-radius: .25em;
+            line-height: var(--tooltip-height);
+            bottom: calc(var(--height) + var(--gap-between-tooltip-to-button) + 10px);
+            left: calc(50% - var(--tooltip-width) / 2);
+        }
+
+        .button::after {
+            position: absolute;
+            content: '';
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-top-color: var(--tooltip-color);
+            left: calc(50% - 10px);
+            bottom: calc(100% + var(--gap-between-tooltip-to-button) - 10px);
+        }
+
+        .button::after,
+        .button::before {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s;
+        }
+
+        .text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .button-wrapper,
+        .text,
+        .icon {
+            overflow: hidden;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            color: #fff;
+        }
+
+        .text {
+            top: 0
+        }
+
+        .text,
+        .icon {
+            transition: top 0.5s;
+        }
+
+        .icon {
+            color: #fff;
+            top: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .button:hover {
+            background: #6c18ff;
+        }
+
+        .button:hover .text {
+            top: -100%;
+        }
+
+        .button:hover .icon {
+            top: 0;
+        }
+
+        .button:hover:before,
+        .button:hover:after {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .button:hover:after {
+            bottom: calc(var(--height) + var(--gap-between-tooltip-to-button) - 20px);
+        }
+
+        .button:hover:before {
+            bottom: calc(var(--height) + var(--gap-between-tooltip-to-button));
+        }
+
+
+        /* --- FIXED SCROLL CONTAINER CSS --- */
+        .scroll-container {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 20px 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .project-card {
+            flex: 0 0 280px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            min-height: 220px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            box-shadow: 0 0 25px rgba(144, 75, 209, 0.7);
+            transform: translateY(-8px);
+        }
+
+        .project-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .project-desc {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-bottom: 15px;
+        }
+
+        .project-link {
+            color: #7a52ff;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .project-link:hover {
+            text-decoration: underline;
+        }
+
+
+
+        #projectModal {
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: #fff;
+            color: #222;
+            border-radius: 16px;
+            padding: 32px 24px;
+            width: 90vw;
+            max-width: 500px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transform: scale(0.8);
+            animation: zoomIn 0.3s forwards;
+            position: relative;
+        }
+
+        @keyframes zoomIn {
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #7a52ff;
+        }
+
+
+
+        /* Contact Form Styles */
+        .contact-section {
+            max-width: 400px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 32px 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .contact-section h2 {
+            text-align: center;
+            margin-bottom: 24px;
+            color: #7a52ff;
+        }
+
+        #contactForm label {
+            display: block;
+            margin: 12px 0 6px;
+            font-weight: 500;
+        }
+
+        #contactForm input,
+        #contactForm textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            margin-bottom: 14px;
+            font-size: 1rem;
+            background: #f9f9f9;
+            transition: border 0.2s;
+        }
+
+        #contactForm input:focus,
+        #contactForm textarea:focus {
+            border: 1.5px solid #7a52ff;
+            outline: none;
+        }
+
+        #contactForm button {
+            width: 100%;
+            padding: 12px;
+            background: #7a52ff;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        #contactForm button:hover {
+            background: #5a36c9;
+        }
+
+        #formStatus {
+            margin-top: 12px;
+            font-size: 0.98rem;
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .firstSection {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .firstSection>div {
+                width: 90%;
+            }
+
+            .rightSection img {
+                width: 90%;
+                margin: 0 auto;
+            }
+
+            .section {
+                max-width: 98vw;
+                padding: 30px 0;
+            }
+
+            .scroll-container {
+                gap: 12px;
+                padding: 12px 0;
+            }
+
+            .project-card {
+                min-width: 220px;
+                padding: 12px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                flex-direction: column;
+                height: auto;
+                padding: 10px 0;
+            }
+
+            nav .left {
+                font-size: 1.3rem;
+                margin-bottom: 8px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav ul li {
+                margin: 8px 0;
+            }
+
+            main {
+                margin-top: 110px;
+                padding-top: 0;
+            }
+
+            .section h1 {
+                font-size: 1.3rem;
+            }
+
+            .section h2 {
+                font-size: 1.1rem;
+            }
+
+            .resume-content,
+            .section p,
+            .section ul {
+                font-size: 0.95rem;
+            }
+
+            .contact-section {
+                max-width: 98vw;
+                padding: 16px 6px;
+            }
+
+            #contactForm input,
+            #contactForm textarea {
+                font-size: 0.98rem;
+                padding: 8px;
+            }
+
+            #contactForm button {
+                font-size: 1rem;
+                padding: 10px;
+            }
+
+            .scroll-container {
+                gap: 8px;
+                padding: 8px 0;
+            }
+
+            .project-card {
+                min-width: 170px;
+                padding: 8px;
+                font-size: 0.95rem;
+            }
+
+            .modal-content {
+                padding: 12px 4px;
+                max-width: 98vw;
+            }
+
+            .close-btn {
+                font-size: 1.5rem;
+                top: 6px;
+                right: 10px;
+            }
+
+            .rightSection img {
+                width: 100%;
+                margin: 0 auto;
+            }
+        }
+
+        /* Make images and videos responsive */
+        img,
+        video {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Ensure modal covers full screen on mobile */
+        #projectModal {
+            align-items: flex-start;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav id="navbar">
+            <div class="left">Digvijay's Portfolio</div>
+            <div class="right">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#resume">Resume</a></li>
+                    <li><a href="#contact">Contact Me</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="firstSection">
+            <div class="leftSection">
+                Hi, my name is <span class="purple">Digvijay</span>
+                <div>and I am a passionate <span id="element"></span> Student From savitribai Phule Pune
+                    University </div>
+            </div>
+            <div class="rightSection" data-aos="fade-left">
+                <img src="bg1.png" alt="">
+            </div>
+        </section>
+        <hr>
+        <section id="about" class="section">
+            <h1 data-aos="fade-up">About</h1>
+            <h2 data-aos="fade-right">Academic Background</h2>
+            <p data-aos="fade-left">I am currently a third-year BSc Data Science student at the Department of
+                Technology, Savitribai Phule Pune University. About Me
+                I am a highly motivated BSc Data Science student with a strong foundation in machine learning, data
+                analysis,
+                and visualization. I am passionate about leveraging data-driven insights to solve real-world problems.
+                With hands-on experience in Python, SQL, Power BI, and machine learning algorithms,
+                I have worked on various projects related to predictive modeling, computer vision, and AI-powered
+                applications.
+                My goal is to continuously learn and apply cutting-edge technologies to create impactful solutions.</p>
+            <h2 data-aos="fade-right">Education</h2>
+            <ul data-aos="fade-left">
+                <li>B.Sc. in Data Science (2022 - 2025)
+                    Savitribai Phule Pune University, Department of Technology
+                    GPA: 8.07</li>
+                <li>Higher Secondary Certificate (HSC) (2020 - 2022)
+                    Dattakala Group of Institutions, Pune
+                    Percentage: 80%</li>
+                <li>Secondary School Certificate (SSC - CBSE) (2019 - 2020)
+                    Podar International School, Chinchwad
+                    Percentage: 75%</li>
+                <h2 data-aos="fade-right">Skills</h2>
+                <ul data-aos="fade-left">
+                    <li>Programming Languages: Python (NumPy, Pandas, Seaborn, Scikit-learn), R, SQL, HTML, CSS</li>
+                    <li>Data Visualization: Power BI, Tableau, Matplotlib, Seaborn</li>
+                    <li>Machine Learning & AI: Supervised & Unsupervised Learning, NLP (TensorFlow, NLTK), Computer
+                        Vision (OpenCV)</li>
+                    <li>Web Development: HTML, CSS(beginner)</li>
+                    <li>Tools: Git, Jupyter Notebook, Google Colab</li>
+                    <li>Soft Skills: Communication, Teamwork, Problem-solving</li>
+                </ul>
+        </section>
+        <hr>
+        <section id="about" class="section">
+            <h1 data-aos="fade-up">Project</h1>
+            <div class="scroll-container" id="scrollContainer">
+                <div class="project-card">
+                    <div class="project-title">Super Store Sales Dashboard</div>
+                    <div class="project-desc">Power BI dashboard with time series forecasting.</div>
+                    <a href="https://github.com/Digvijaycode/Super-Store-Dashboard" target="_blank"
+                        class="project-link">GitHub Repo</a>
+                </div>
+                <div class="project-card">
+                    <div class="project-title">Real-Time Face Privacy</div>
+                    <div class="project-desc">Face detection and privacy protection using deep learning.</div>
+                    <a href="https://github.com/Digvijaycode/Real-TIME-FACE-PRIVECY" target="_blank"
+                        class="project-link">GitHub Repo</a>
+                </div>
+                <div class="project-card">
+                    <div class="project-title">Real-Time Air Canvas</div>
+                    <div class="project-desc">Hand gesture-based digital drawing system.</div>
+                    <a href="https://github.com/Digvijaycode/hand-air-canvas-" target="_blank"
+                        class="project-link">GitHub
+                        Repo</a>
+                </div>
+                <div class="project-card">
+                    <div class="project-title">College Admission Prediction</div>
+                    <div class="project-desc">Random Forest-based college admission predictor.</div>
+                    <a href="https://github.com/Digvijaycode/collage-prediction-system-using-ml" target="_blank"
+                        class="project-link">GitHub Repo</a>
+                </div>
+
+                <!-- Duplicate these cards to create infinite seamless scrolling -->
+                <div class="project-card">
+                    <div class="project-title">Super Store Sales Dashboard</div>
+                    <div class="project-desc">Power BI dashboard with time series forecasting.</div>
+                    <a href="https://github.com/Digvijaycode/Super-Store-Dashboard" target="_blank"
+                        class="project-link">GitHub Repo</a>
+                </div>
+                <div class="project-card">
+                    <div class="project-title">Real-Time Face Privacy</div>
+                    <div class="project-desc">Face detection and privacy protection using deep learning.</div>
+                    <a href="https://github.com/Digvijaycode/Real-TIME-FACE-PRIVECY" target="_blank"
+                        class="project-link">GitHub Repo</a>
+                </div>
+                <div class="project-card">
+                    <div class="project-title">Real-Time Air Canvas</div>
+                    <div class="project-desc">Hand gesture-based digital drawing system.</div>
+                    <a href="https://github.com/Digvijaycode/hand-air-canvas-" target="_blank"
+                        class="project-link">GitHub
+                        Repo</a>
+                </div>
+                <div class="project-card">
+                    <div class="project-title">College Admission Prediction</div>
+                    <div class="project-desc">Random Forest-based college admission predictor.</div>
+                    <a href="https://github.com/Digvijaycode/collage-prediction-system-using-ml" target="_blank"
+                        class="project-link">GitHub Repo</a>
+                </div>
+            </div>
+        </section>
+
+
+        <hr>
+        <section id="resume" class="section">
+            <h1 data-aos="fade-up">Resume</h1>
+            <p class="resume-content" data-aos="fade-up">You can download my resume by clicking the button below:</p>
+            <button class="button" onclick="downloadResume()" data-tooltip="Download Resume">Download</button>
+        </section>
+        <hr>
+        <section id="contact" class="section">
+            <h1 data-aos="fade-up">Contact Me</h1>
+            <div data-aos="fade-up">
+                <section id="contact" class="contact-section">
+                    <h2>Contact Me</h2>
+                    <form id="contactForm" autocomplete="off">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required placeholder="Enter your name">
+
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" name="email" required placeholder="Enter your email">
+
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required placeholder="Type your message"></textarea>
+
+                        <button type="submit">Send Message</button>
+                        <div id="formStatus"></div>
+                    </form>
+                </section>
+
+                <h2>Social Media</h2>
+                <p><a href="https://www.linkedin.com/in/digvijay-hande-1bb538264/" target="blank">
+                        <img src="L_logo.webp" alt="LinkedIn" width="60">
+                        <a href="https://github.com/Digvijaycode" target="_blank">
+                            <img src="gitlogo.png" alt="GitHub" width="50">
+                            <a href="https://www.instagram.com/digvijay_hande_07/" target="_blank">
+                                <img src="instalogo.jpg" alt="Instagram" width="50">
+                            </a>
+                        </a></p>
+            </div>
+        </section>
+    </main>
+
+
+
+    <!-- Project Modal Popup -->
+    <div id="projectModal" style="display:none;">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalDesc"></p>
+            <video id="modalVideo" width="100%" controls style="display:none;"></video>
+            <a id="modalLink" href="#" target="_blank">View GitHub Repo</a>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1200,
+        });
+
+        function downloadResume() {
+            let resumeUrl = 'https://docs.google.com/document/d/1gRLFH2lfh1l0bdjSCw33-cxseV2nWjQS/edit?usp=sharing&ouid=107636425094332790146&rtpof=true&sd=true'; // Replace with your actual Google Drive file ID
+            let link = document.createElement('a');
+            link.href = resumeUrl;
+            link.setAttribute('download', 'Digvijay_Hande_Resume.docx');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+
+    </script>
+
+    <!-- AUTO-SCROLL SCRIPT -->
+    <script>
+        const scrollContainer = document.getElementById('scrollContainer');
+        let scrollSpeed = 2.5; // pixels per frame
+        let isHovered = false;
+
+        function autoScroll() {
+            if (!isHovered) {
+                scrollContainer.scrollLeft += scrollSpeed;
+                // If we've scrolled to the end, reset to start for infinite effect
+                if (scrollContainer.scrollLeft + scrollContainer.offsetWidth >= scrollContainer.scrollWidth) {
+                    scrollContainer.scrollLeft = 0;
+                }
+            }
+            requestAnimationFrame(autoScroll);
+        }
+
+        // Pause auto-scroll on hover
+        scrollContainer.addEventListener('mouseenter', () => { isHovered = true; });
+        scrollContainer.addEventListener('mouseleave', () => { isHovered = false; });
+
+        autoScroll();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script>
+        var typed = new Typed('#element', {
+            strings: ['Data Science', 'Machine Learning ', 'Data Analyst', 'Python ', 'AI Enthusiast'],
+            typeSpeed: 30,
+            backSpeed: 50,
+            loop: true
+        });
+    </script>
+
+
+
+
+
+    <script>
+        const projectData = [
+            {
+                title: "Super Store Sales Dashboard",
+                desc: "Power BI dashboard with time series forecasting.",
+                video: "superstore.mp4", // Replace with your actual video file path or URL
+                link: "https://github.com/Digvijaycode/Super-Store-Dashboard"
+            },
+            {
+                title: "Real-Time Face Privacy",
+                desc: "Face detection and privacy protection using deep learning.",
+                video: "faceprivacy.mp4",
+                link: "https://github.com/Digvijaycode/Real-TIME-FACE-PRIVECY"
+            },
+            {
+                title: "Real-Time Air Canvas",
+                desc: "Hand gesture-based digital drawing system.",
+                video: "aircanvas.mp4",
+                link: "https://github.com/Digvijaycode/hand-air-canvas-"
+            },
+            {
+                title: "College Admission Prediction",
+                desc: "Random Forest-based college admission predictor.",
+                video: "admission.mp4",
+                link: "https://github.com/Digvijaycode/collage-prediction-system-using-ml"
+            }
+        ];
+
+        document.querySelectorAll('.project-card').forEach((card, idx) => {
+            card.addEventListener('click', () => {
+                // Get the correct project (handles repeats in scroll)
+                const project = projectData[idx % projectData.length];
+                document.getElementById('modalTitle').textContent = project.title;
+                document.getElementById('modalDesc').textContent = project.desc;
+                document.getElementById('modalLink').href = project.link;
+                // Show video if exists
+                const video = document.getElementById('modalVideo');
+                if (project.video) {
+                    video.src = project.video;
+                    video.style.display = '';
+                    video.load();
+                    video.play();
+                } else {
+                    video.style.display = 'none';
+                    video.pause();
+                    video.src = '';
+                }
+                document.getElementById('projectModal').style.display = 'flex';
+            });
+        });
+
+        // Close modal logic
+        document.querySelector('#projectModal .close-btn').onclick = function () {
+            document.getElementById('projectModal').style.display = 'none';
+            document.getElementById('modalVideo').pause();
+        };
+        window.onclick = function (event) {
+            if (event.target === document.getElementById('projectModal')) {
+                document.getElementById('projectModal').style.display = 'none';
+                document.getElementById('modalVideo').pause();
+            }
+        };
+    </script>
+
+
+
+
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        (function () {
+            emailjs.init("YOUR_USER_ID"); // Replace with your EmailJS user ID
+        })();
+    </script>
+
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            document.getElementById('formStatus').textContent = "Sending...";
+
+            emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+                from_name: document.getElementById('name').value,
+                from_email: document.getElementById('email').value,
+                message: document.getElementById('message').value
+            })
+                .then(function (response) {
+                    document.getElementById('formStatus').textContent = "Message sent successfully!";
+                    document.getElementById('contactForm').reset();
+                }, function (error) {
+                    document.getElementById('formStatus').textContent = "Oops! Something went wrong. Please try again.";
+                });
+        });
+    </script>
+
+
+
+</body>
+
+</html>
