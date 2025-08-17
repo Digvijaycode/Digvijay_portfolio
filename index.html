@@ -1,931 +1,932 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" data-theme="auto">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digvijay's Portfolio</title>
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-image: url(bg3.jpg);
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-size: 100% 100%;
-            color: #007bf7;
-            font-family: 'Courier New', Courier, monospace;
-            overflow-x: hidden;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 80px;
-            background-color: #004f4f;
-            padding: 0 20px;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            transition: top 0.3s;
-            /* Smooth transition for appearing/disappearing */
-        }
-
-        nav.hidden {
-            top: -80px;
-            /* Move up to hide */
-        }
-
-        nav ul {
-            display: flex;
-            justify-content: center;
-        }
-
-        nav ul li {
-            list-style: none;
-            margin: 0 23px;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: rgb(236, 233, 227);
-            transition: color 0.3s;
-            display: block;
-            /* Ensure links take full height of their parent for easy clicking */
-            padding: 20px 10px;
-            /* Increase clickable area */
-        }
-
-        nav ul li a:hover {
-            color: wheat;
-            font-size: 1.1rem;
-        }
-
-        main {
-            margin-top: 80px;
-            /* Compensate for fixed nav height */
-            padding-top: 20px;
-            /* Add space above sections to avoid overlap with nav */
-        }
-
-        main hr {
-            border: 0;
-            background-color: #9c97f1;
-            height: 1.2px;
-            margin: 40px 84px;
-        }
-
-        .left {
-            font-size: 2rem;
-        }
-
-        .firstSection {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            margin: 30px 0;
-        }
-
-        .firstSection>div {
-            width: 40%;
-        }
-
-        .leftSection {
-            font-size: 2.5rem;
-        }
-
-        .rightSection img {
-            width: 70%;
-            margin: -50px 0;
-        }
-
-        .purple {
-            color: rgb(144, 75, 209);
-        }
-
-        #element {
-            color: rgb(144, 75, 209);
-        }
-
-        .section {
-            max-width: 80vw;
-            margin: auto;
-            padding: 60px 0;
-        }
-
-        .section h1 {
-            font-size: 2rem;
-            color: rgb(144, 75, 209);
-            margin-bottom: 20px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .section h1::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background-color: rgb(144, 75, 209);
-            transition: width 0.5s, left 0.5s;
-        }
-
-        .section h1:hover::after {
-            width: 100%;
-            left: 0;
-        }
-
-        .section h2 {
-            font-size: 1.5rem;
-            margin-top: 20px;
-            color: rgb(93, 93, 213);
-        }
-
-        .section p,
-        .section ul {
-            font-size: 1rem;
-            margin-bottom: 10px;
-            line-height: 1.6;
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        .section ul {
-            margin: 10px 0;
-            padding-left: 20px;
-        }
-
-        .section ul li {
-            list-style: disc;
-            margin-bottom: 5px;
-        }
-
-        .resume-content {
-            font-size: 1rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            color: rgb(93, 93, 213);
-            opacity: 1 !important;
-        }
-
-        .button {
-            --width: 100px;
-            --height: 35px;
-            --tooltip-height: 35px;
-            --tooltip-width: 90px;
-            --gap-between-tooltip-to-button: 18px;
-            --button-color: #1163ff;
-            --tooltip-color: #fff;
-            width: var(--width);
-            height: var(--height);
-            background: var(--button-color);
-            position: relative;
-            text-align: center;
-            border-radius: 0.45em;
-            font-family: "Arial";
-            transition: background 0.3s;
-            cursor: pointer;
-            /* Added cursor pointer */
-        }
-
-        .button::before {
-            position: absolute;
-            content: attr(data-tooltip);
-            width: var(--tooltip-width);
-            height: var(--tooltip-height);
-            background-color: var(--tooltip-color);
-            font-size: 0.9rem;
-            color: #111;
-            border-radius: .25em;
-            line-height: var(--tooltip-height);
-            bottom: calc(var(--height) + var(--gap-between-tooltip-to-button) + 10px);
-            left: calc(50% - var(--tooltip-width) / 2);
-        }
-
-        .button::after {
-            position: absolute;
-            content: '';
-            width: 0;
-            height: 0;
-            border: 10px solid transparent;
-            border-top-color: var(--tooltip-color);
-            left: calc(50% - 10px);
-            bottom: calc(100% + var(--gap-between-tooltip-to-button) - 10px);
-        }
-
-        .button::after,
-        .button::before {
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.5s;
-        }
-
-        .text {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .button-wrapper,
-        .text,
-        .icon {
-            overflow: hidden;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            left: 0;
-            color: #fff;
-        }
-
-        .text {
-            top: 0
-        }
-
-        .text,
-        .icon {
-            transition: top 0.5s;
-        }
-
-        .icon {
-            color: #fff;
-            top: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .icon svg {
-            width: 24px;
-            height: 24px;
-        }
-
-        .button:hover {
-            background: #6c18ff;
-        }
-
-        .button:hover .text {
-            top: -100%;
-        }
-
-        .button:hover .icon {
-            top: 0;
-        }
-
-        .button:hover:before,
-        .button:hover:after {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .button:hover:after {
-            bottom: calc(var(--height) + var(--gap-between-tooltip-to-button) - 20px);
-        }
-
-        .button:hover:before {
-            bottom: calc(var(--height) + var(--gap-between-tooltip-to-button));
-        }
-
-
-        /* --- FIXED SCROLL CONTAINER CSS --- */
-        .scroll-container {
-            display: flex;
-            gap: 20px;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            padding: 20px 0;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-
-        .scroll-container::-webkit-scrollbar {
-            display: none;
-        }
-
-        .project-card {
-            flex: 0 0 280px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 15px;
-            min-height: 220px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
-
-        .project-card:hover {
-            box-shadow: 0 0 25px rgba(144, 75, 209, 0.7);
-            transform: translateY(-8px);
-        }
-
-        .project-title {
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .project-desc {
-            font-size: 0.9rem;
-            opacity: 0.7;
-            margin-bottom: 15px;
-        }
-
-        .project-link {
-            color: #7a52ff;
-            font-weight: 600;
-            text-decoration: none;
-        }
-
-        .project-link:hover {
-            text-decoration: underline;
-        }
-
-
-
-        #projectModal {
-            position: fixed;
-            z-index: 9999;
-            left: 0;
-            top: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: fadeIn 0.3s;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        .modal-content {
-            background: #fff;
-            color: #222;
-            border-radius: 16px;
-            padding: 32px 24px;
-            width: 90vw;
-            max-width: 500px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            transform: scale(0.8);
-            animation: zoomIn 0.3s forwards;
-            position: relative;
-        }
-
-        @keyframes zoomIn {
-            to {
-                transform: scale(1);
-            }
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 12px;
-            right: 18px;
-            font-size: 2rem;
-            cursor: pointer;
-            color: #7a52ff;
-        }
-
-
-
-        /* Contact Form Styles */
-        .contact-section {
-            max-width: 400px;
-            margin: 50px auto;
-            background: #fff;
-            padding: 32px 24px;
-            border-radius: 12px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-        }
-
-        .contact-section h2 {
-            text-align: center;
-            margin-bottom: 24px;
-            color: #7a52ff;
-        }
-
-        #contactForm label {
-            display: block;
-            margin: 12px 0 6px;
-            font-weight: 500;
-        }
-
-        #contactForm input,
-        #contactForm textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #e0e0e0;
-            border-radius: 6px;
-            margin-bottom: 14px;
-            font-size: 1rem;
-            background: #f9f9f9;
-            transition: border 0.2s;
-        }
-
-        #contactForm input:focus,
-        #contactForm textarea:focus {
-            border: 1.5px solid #7a52ff;
-            outline: none;
-        }
-
-        #contactForm button {
-            width: 100%;
-            padding: 12px;
-            background: #7a52ff;
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        #contactForm button:hover {
-            background: #5a36c9;
-        }
-
-        #formStatus {
-            margin-top: 12px;
-            font-size: 0.98rem;
-            text-align: center;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 900px) {
-            .firstSection {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .firstSection>div {
-                width: 90%;
-            }
-
-            .rightSection img {
-                width: 90%;
-                margin: 0 auto;
-            }
-
-            .section {
-                max-width: 98vw;
-                padding: 30px 0;
-            }
-
-            .scroll-container {
-                gap: 12px;
-                padding: 12px 0;
-            }
-
-            .project-card {
-                min-width: 220px;
-                padding: 12px;
-            }
-        }
-
-        @media (max-width: 600px) {
-            nav {
-                flex-direction: column;
-                height: auto;
-                padding: 10px 0;
-            }
-
-            nav .left {
-                font-size: 1.3rem;
-                margin-bottom: 8px;
-            }
-
-            nav ul {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            nav ul li {
-                margin: 8px 0;
-            }
-
-            main {
-                margin-top: 110px;
-                padding-top: 0;
-            }
-
-            .section h1 {
-                font-size: 1.3rem;
-            }
-
-            .section h2 {
-                font-size: 1.1rem;
-            }
-
-            .resume-content,
-            .section p,
-            .section ul {
-                font-size: 0.95rem;
-            }
-
-            .contact-section {
-                max-width: 98vw;
-                padding: 16px 6px;
-            }
-
-            #contactForm input,
-            #contactForm textarea {
-                font-size: 0.98rem;
-                padding: 8px;
-            }
-
-            #contactForm button {
-                font-size: 1rem;
-                padding: 10px;
-            }
-
-            .scroll-container {
-                gap: 8px;
-                padding: 8px 0;
-            }
-
-            .project-card {
-                min-width: 170px;
-                padding: 8px;
-                font-size: 0.95rem;
-            }
-
-            .modal-content {
-                padding: 12px 4px;
-                max-width: 98vw;
-            }
-
-            .close-btn {
-                font-size: 1.5rem;
-                top: 6px;
-                right: 10px;
-            }
-
-            .rightSection img {
-                width: 100%;
-                margin: 0 auto;
-            }
-        }
-
-        /* Make images and videos responsive */
-        img,
-        video {
-            max-width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* Ensure modal covers full screen on mobile */
-        #projectModal {
-            align-items: flex-start;
-            padding-top: 20px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Digvijay's Portfolio</title>
+
+  <!-- AOS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"/>
+
+  <style>
+    :root {
+      /* Light theme tokens */
+      --bg: #f7f9fc;
+      --ink: #0f172a;
+      --ink-soft:#334155;
+      --surface: rgba(255,255,255,0.7);
+      --stroke: rgba(15,23,42,0.1);
+      --brand: #6c4bff;
+      --brand-2:#8f6bff;
+      --accent:#a177ff;
+      --link:#4b5fff;
+      --muted:#5b6b86;
+      --shadow: 0 12px 40px rgba(50,65,100,0.18);
+      --glass: rgba(255,255,255,0.65);
+      --glass-strong: rgba(255,255,255,0.78);
+      --hero-overlay-1: rgba(108,75,255,0.22);
+      --hero-overlay-2: rgba(161,119,255,0.18);
+      --pattern: rgba(15,23,42,0.05);
+      --card-grad: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.65));
+    }
+    [data-theme="dark"] {
+      /* Dark theme tokens */
+      --bg:#0b1220;
+      --ink:#f4f8ff;
+      --ink-soft:#c9d4ea;
+      --surface: rgba(12,18,30,0.65);
+      --stroke: rgba(255,255,255,0.15);
+      --brand:#7a52ff;
+      --brand-2:#5a36c9;
+      --accent:#a882ff;
+      --link:#b9a3ff;
+      --muted:#b7c3d8;
+      --shadow: 0 12px 40px rgba(0,0,0,0.35);
+      --glass: rgba(13,18,30,0.55);
+      --glass-strong: rgba(13,18,30,0.7);
+      --hero-overlay-1: rgba(122,82,255,0.28);
+      --hero-overlay-2: rgba(168,130,255,0.2);
+      --pattern: rgba(255,255,255,0.06);
+      --card-grad: linear-gradient(180deg, var(--glass), rgba(255,255,255,0.05));
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html, body { height:100%; }
+    body {
+      font-family: Inter, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color: var(--ink); background: var(--bg);
+      overflow-x:hidden; line-height:1.6;
+      transition: background .35s ease, color .35s ease;
+    }
+
+    /* Background with overlay and pattern for readability */
+    body::before {
+      content:""; position: fixed; inset:0; z-index:-2;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.85)),
+        url('bg3.jpg') center/cover no-repeat;
+      transition: opacity .35s ease, filter .35s ease;
+    }
+    [data-theme="dark"] body::before {
+      background:
+        linear-gradient(180deg, rgba(8,12,22,0.9), rgba(8,12,22,0.9)),
+        url('bg3.jpg') center/cover no-repeat;
+      filter: saturate(0.95) contrast(1.05);
+    }
+    body::after {
+      content:""; position: fixed; inset:0; z-index:-1; pointer-events:none;
+      background-image: radial-gradient(var(--pattern) 1px, transparent 1px);
+      background-size: 20px 20px; opacity: .6;
+    }
+
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* NAVBAR layout with left links, brand, controls, right menu */
+    nav {
+      position: fixed; inset-inline:0; top:0; z-index:1000;
+      display: grid;
+      grid-template-columns: auto 1fr auto auto;
+      align-items: center; gap: 12px;
+      height:70px; padding:0 12px;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, var(--surface), rgba(255,255,255,0.3));
+      border-bottom: 1px solid var(--stroke);
+      transition: transform .3s ease, background .35s ease;
+    }
+    [data-theme="dark"] nav {
+      background: linear-gradient(180deg, rgba(9,13,22,0.65), rgba(9,13,22,0.4));
+    }
+    nav.hidden { transform: translateY(-100%); }
+
+    .nav-left { display:flex; }
+    .nav-left-list { display:flex; align-items:center; list-style:none; gap:14px; padding:0; margin:0; }
+    .nav-left-list a {
+      color: var(--ink); padding: 8px 10px; border-radius:10px; transition: background .2s ease, color .2s ease;
+    }
+    .nav-left-list a:hover { background: rgba(0,0,0,0.06); }
+    [data-theme="dark"] .nav-left-list a:hover { background: rgba(255,255,255,0.08); color:#fff; }
+
+    .left { font-weight:800; letter-spacing:.2px; font-size:1.1rem; color: var(--ink); justify-self: start; }
+    .menu-right-wrap { display:flex; align-items:center; gap:10px; }
+    .right { justify-self: end; }
+    .right ul { display:flex; align-items:center; gap:18px; list-style:none; }
+    .right ul li a {
+      color: var(--ink); padding:10px 10px; border-radius:10px; transition: background .2s ease, color .2s ease;
+    }
+    .right ul li a:hover { background: rgba(0,0,0,0.06); }
+    [data-theme="dark"] .right ul li a:hover { background: rgba(255,255,255,0.08); color:#fff; }
+
+    .hide-desktop { display:none; }
+
+    .menu-toggle {
+      display:none; cursor:pointer; font-size:1.8rem; line-height:1;
+      padding:8px; border-radius:8px; color: var(--ink);
+    }
+    .theme-toggle {
+      border:1px solid var(--stroke); background: var(--surface);
+      padding:8px 10px; border-radius:10px; cursor:pointer;
+      display:flex; align-items:center; gap:8px;
+      transition: transform .12s ease, background .25s ease;
+      color: var(--ink);
+    }
+    .theme-toggle:hover { transform: translateY(-1px); }
+    [data-theme="dark"] .theme-toggle { background: rgba(255,255,255,0.06); color: #fff; }
+
+    main { margin-top:70px; }
+
+    /* Hero - move text a bit up for balance */
+    .firstSection {
+      display:flex; align-items:center; justify-content:space-between; gap:28px;
+      padding: 22px 5vw 0 5vw; /* reduced top/bottom to lift content */
+    }
+    .firstSection>div{ width:50%; }
+    .leftSection {
+      font-size: clamp(1.2rem, 1rem + 1.4vw, 2rem);
+      transform: translateY(-8px); /* lift hero text slightly up */
+    }
+    .purple { color: var(--brand); font-weight:800; }
+    #element { color: var(--brand-2); font-weight:700; }
+
+    .rightSection { position:relative; display:flex; align-items:center; justify-content:center; }
+    .rightSection::before {
+      content:""; position:absolute; inset:auto auto 8% -8%;
+      width: 88%; height: 70%; filter: blur(40px);
+      background: radial-gradient(60% 60% at 50% 50%, var(--hero-overlay-1), var(--hero-overlay-2), transparent);
+      z-index:0; transition: transform .4s ease;
+      will-change: transform;
+    }
+    .rightSection img {
+      width: min(520px, 88%); border-radius: 22px; box-shadow: var(--shadow); position:relative; z-index:1;
+      border: 1px solid var(--stroke);
+    }
+
+    /* Sections */
+    .section {
+      width:min(1200px, 92vw); margin: 26px auto; padding: 28px clamp(12px, 3vw, 26px);
+      background: var(--card-grad);
+      border: 1px solid var(--stroke);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .liquid {
+      position:absolute; width:240px; height:240px; top:-80px; right:-60px; border-radius: 40% 60% 70% 30% / 30% 40% 60% 70%;
+      background: radial-gradient(closest-side, rgba(255,255,255,0.18), rgba(255,255,255,0.06), transparent);
+      filter: blur(12px); pointer-events:none; animation: morph 10s ease-in-out infinite;
+      opacity: .55;
+    }
+    [data-theme="dark"] .liquid {
+      background: radial-gradient(closest-side, rgba(122,82,255,0.18), rgba(122,82,255,0.06), transparent);
+    }
+    @keyframes morph {
+      0% { border-radius: 40% 60% 70% 30% / 30% 40% 60% 70%; transform: translate(0,0) rotate(0deg); }
+      50%{ border-radius: 60% 40% 30% 70% / 70% 60% 40% 30%; transform: translate(-10px,6px) rotate(8deg); }
+      100%{ border-radius: 40% 60% 70% 30% / 30% 40% 60% 70%; transform: translate(0,0) rotate(0deg); }
+    }
+
+    .section h1 {
+      font-size: clamp(1.35rem, 1.15rem + 1vw, 2rem);
+      color: var(--brand); margin-bottom: 10px; text-align:center; position:relative;
+    }
+    .section h1::after {
+      content:""; position:absolute; left:50%; bottom:-10px; height:2px; width:0;
+      background: linear-gradient(90deg, transparent, var(--brand-2), transparent);
+      transform: translateX(-50%); transition: width .5s ease;
+    }
+    .section h1:hover::after { width: 220px; }
+
+    .section h2 { font-size: clamp(1.02rem, 1rem + 0.5vw, 1.3rem); margin-top: 16px; color: var(--ink); opacity: .9; }
+    [data-theme="dark"] .section h2 { color: #dfe6ff; }
+    .section p, .section ul { font-size: clamp(0.98rem, 0.95rem + 0.2vw, 1.05rem); margin-bottom: 10px; color: var(--ink-soft); }
+    [data-theme="dark"] .section p, [data-theme="dark"] .section ul { color:#eaf1ff; }
+    .section ul { padding-left: 18px; }
+    .section ul li { list-style: disc; margin-bottom: 6px; }
+    .resume-content { text-align:center; }
+
+    /* Primary button */
+    .button, .btn-primary {
+      --size-x: 180px; --size-y: 46px;
+      width: var(--size-x); height: var(--size-y);
+      border-radius: 12px;
+      background: linear-gradient(180deg, var(--brand), var(--brand-2));
+      color:#fff; border:1px solid var(--stroke); cursor:pointer;
+      display:block; margin: 0 auto;
+      font-weight: 800; letter-spacing: .2px;
+      box-shadow: 0 14px 28px rgba(108,75,255,0.25);
+      transition: transform .12s ease, box-shadow .2s ease, filter .2s ease;
+      position:relative; overflow:hidden;
+    }
+    .button:hover, .btn-primary:hover { transform: translateY(-1px); filter: brightness(1.05); }
+    .button:active, .btn-primary:active { transform: translateY(0); }
+    .button::after, .btn-primary::after {
+      content:""; position:absolute; inset:auto 0 0 0; height: 0%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.12), transparent);
+      transition: height .35s ease; pointer-events:none;
+    }
+    .button:hover::after, .btn-primary:hover::after { height: 80%; }
+
+    /* Divider */
+    main hr {
+      border:0; height:1px; margin: 28px auto; width:min(1160px, 90vw);
+      background: linear-gradient(90deg, transparent, rgba(15,23,42,0.2), transparent);
+    }
+    [data-theme="dark"] main hr {
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+    }
+
+    /* Project scroller: smoother */
+    .scroll-container {
+      display:flex; gap:16px; overflow-x:auto;
+      padding: 14px 0;
+      scrollbar-width:none; -ms-overflow-style:none;
+      scroll-behavior: auto; /* managed by JS rAF */
+      will-change: scroll-position;
+    }
+    .scroll-container::-webkit-scrollbar{ display:none; }
+
+    .project-card{
+      flex:0 0 300px;
+      background: var(--card-grad);
+      padding: 16px 16px 18px 16px;
+      border-radius: 14px; min-height:220px;
+      box-shadow: var(--shadow);
+      transition: transform 220ms cubic-bezier(.2,.6,.2,1), box-shadow 220ms ease, border-color 200ms ease;
+      cursor:pointer; border:1px solid var(--stroke);
+      perspective: 600px; transform-style: preserve-3d;
+      will-change: transform, box-shadow, border-color;
+    }
+    .project-card:hover { transform: translateY(-4px); box-shadow: 0 18px 36px rgba(108,75,255,0.22); border-color: rgba(108,75,255,0.3); }
+    .project-title { font-weight:800; margin-bottom:10px; }
+    .project-desc { font-size:.96rem; opacity:.95; margin-bottom:12px; }
+    .project-link {
+      font-weight:700; display:inline-block; padding:6px 8px; border-radius:10px;
+      background: rgba(108,75,255,0.1); border:1px solid rgba(108,75,255,0.2);
+      transition: background 180ms ease, transform 140ms ease;
+    }
+    .project-link:hover { background: rgba(108,75,255,0.16); text-decoration:none; transform: translateY(-1px); }
+
+    /* Modal */
+    #projectModal {
+      position: fixed; inset:0; z-index:9999;
+      background: rgba(0,0,0,0.6); display:none; align-items:center; justify-content:center;
+      animation: fadeIn .22s ease; padding: 16px;
+    }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+    .modal-content {
+      background: var(--card-grad); border:1px solid var(--stroke);
+      color: var(--ink); border-radius: 18px;
+      padding: 20px 16px; width: 92vw; max-width: 560px; box-shadow: var(--shadow);
+    }
+    [data-theme="dark"] .modal-content { color:#eaf0ff; }
+    .close-btn {
+      position:absolute; right: 24px; transform: translateY(-8px);
+      font-size:1.8rem; cursor:pointer; color: var(--ink-soft);
+    }
+    [data-theme="dark"] .close-btn { color:#e0d7ff; }
+
+    /* Contact professional UI */
+    .section .subtle {
+      color: var(--ink-soft); opacity:.9; text-align:center; margin-bottom: 12px; font-size: .98rem;
+    }
+    .contact-card {
+      max-width: 640px; margin: 0 auto;
+      background: var(--card-grad); border: 1px solid var(--stroke);
+      border-radius: 14px; box-shadow: var(--shadow); padding: 22px 16px;
+    }
+    .form-row { display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+
+    .label {
+      display:block; font-weight:700; margin: 10px 0 6px; color: var(--ink);
+    }
+    [data-theme="dark"] .label { color:#eaf2ff; }
+
+    .input, .textarea {
+      width: 100%; padding: 12px; border-radius: 10px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.6);
+      color: var(--ink);
+      transition: border .18s ease, box-shadow .18s ease, background .25s ease;
+    }
+    [data-theme="dark"] .input, [data-theme="dark"] .textarea {
+      background:#0c1220; color:#f4f8ff;
+    }
+    .input:focus, .textarea:focus {
+      outline:none; border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(108,75,255,0.18);
+    }
+    .textarea { min-height: 120px; resize: vertical; }
+
+    .btn-primary {
+      width: 100%; height:auto; padding: 12px 14px; border-radius: 10px; border: none;
+    }
+    .btn-primary:disabled { opacity:.7; cursor:not-allowed; }
+    .btn-primary .spinner {
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.6);
+      border-top-color: #fff; animation: spin .8s linear infinite;
+      display: inline-block; vertical-align: middle; margin-right: 8px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .status { margin-top: 10px; text-align: center; font-size: .98rem; }
+    .status.success { color: #16a34a; } /* green-600 */
+    .status.error { color: #dc2626; }   /* red-600 */
+
+    .social-wrap {
+      display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap; margin-top: 12px;
+    }
+    .social-btn {
+      display:inline-flex; align-items:center; justify-content:center;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(0,0,0,0.06); border:1px solid var(--stroke);
+      transition: transform .12s ease, background .2s ease, box-shadow .2s ease;
+    }
+    [data-theme="dark"] .social-btn { background: rgba(255,255,255,0.06); }
+    .social-btn:hover { transform: translateY(-2px); background: rgba(108,75,255,0.12); }
+    .social-btn img { width: 22px; height: 22px; display:block; }
+    .social-btn:focus-visible { outline:2px solid var(--brand); outline-offset:3px; }
+
+    /* Instagram colored glow */
+    .social-btn[aria-label="Instagram"]:hover {
+      box-shadow: 0 8px 22px rgba(225, 48, 108, 0.25);
+      background: rgba(225, 48, 108, 0.10);
+    }
+    .social-btn[aria-label="Instagram"] img { filter: none; }
+
+    /* Accessibility focus */
+    :focus-visible{ outline:2px solid var(--brand); outline-offset: 2px; border-radius:8px; }
+
+    /* Responsive */
+    @media (max-width: 900px){
+      nav { grid-template-columns: 1fr auto auto; }
+      .nav-left { display: none; }        /* hide left links on mobile */
+      .hide-desktop { display: list-item; } /* show copies in menu */
+    }
+    @media (max-width: 980px){
+      .firstSection{ flex-direction: column-reverse; gap:22px; text-align:center; }
+      .firstSection>div{ width:100%; }
+      .rightSection img { width:min(520px, 92%); margin:0 auto; }
+    }
+    @media (max-width: 720px){
+      .menu-toggle { display:block; }
+      .right{ width:100%; }
+      .right ul{ display:none; flex-direction:column; align-items:flex-start; gap:6px; padding:10px 6px 14px 6px; }
+      .right.active ul{ display:flex; }
+      .right ul li a { width:100%; padding:10px 12px; }
+      .section{ width:94vw; padding: 24px 14px; }
+      .project-card{ min-width: 86vw; }
+      .button { width: 92vw; }
+    }
+    @media (max-width: 480px){
+      .left { font-size:1rem; }
+      .leftSection { font-size:1.14rem; }
+      .section h1 { font-size:1.28rem; }
+      .section h2 { font-size:1rem; }
+      .modal-content { width:96vw; }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      * { animation: none !important; transition: none !important; }
+    }
+
+    /* Apply liquid glass style to all major sections */
+.firstSection,
+.section {
+  background: var(--card-grad);
+  border: 1px solid var(--stroke);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Liquid bubble effect for Home */
+.firstSection::before {
+  content: "";
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  top: -80px;
+  left: -60px;
+  border-radius: 40% 60% 70% 30% / 30% 40% 60% 70%;
+  background: radial-gradient(closest-side, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.06), transparent);
+  filter: blur(14px);
+  opacity: 0.55;
+  animation: morph 10s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-theme="dark"] .firstSection::before {
+  background: radial-gradient(closest-side, rgba(122, 82, 255, 0.18), rgba(122, 82, 255, 0.06), transparent);
+}
+
+  </style>
 </head>
-
 <body>
-    <header>
-        <nav id="navbar">
-            <div class="left">Digvijay's Portfolio</div>
-            <div class="right">
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#resume">Resume</a></li>
-                    <li><a href="#contact">Contact Me</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+  <header>
+    <nav id="navbar">
+      <!-- LEFT: top three links -->
+      <div class="nav-left">
+        <ul class="nav-left-list">
+          <li><a href="#home" onclick="closeMenu()">Home</a></li>
+          <li><a href="#about" onclick="closeMenu()">About</a></li>
+          <li><a href="#projects" onclick="closeMenu()">Projects</a></li>
+        </ul>
+      </div>
 
-    <main>
-        <section id="home" class="firstSection">
-            <div class="leftSection">
-                Hi, my name is <span class="purple">Digvijay</span>
-                <div>and I am a passionate <span id="element"></span> Student From savitribai Phule Pune
-                    University </div>
-            </div>
-            <div class="rightSection" data-aos="fade-left">
-                <img src="bg1.png" alt="">
-            </div>
-        </section>
-        <hr>
-        <section id="about" class="section">
-            <h1 data-aos="fade-up">About</h1>
-            <h2 data-aos="fade-right">Academic Background</h2>
-            <p data-aos="fade-left">I am currently a third-year BSc Data Science student at the Department of
-                Technology, Savitribai Phule Pune University. About Me
-                I am a highly motivated BSc Data Science student with a strong foundation in machine learning, data
-                analysis,
-                and visualization. I am passionate about leveraging data-driven insights to solve real-world problems.
-                With hands-on experience in Python, SQL, Power BI, and machine learning algorithms,
-                I have worked on various projects related to predictive modeling, computer vision, and AI-powered
-                applications.
-                My goal is to continuously learn and apply cutting-edge technologies to create impactful solutions.</p>
-            <h2 data-aos="fade-right">Education</h2>
-            <ul data-aos="fade-left">
-                <li>B.Sc. in Data Science (2022 - 2025)
-                    Savitribai Phule Pune University, Department of Technology
-                    GPA: 8.07</li>
-                <li>Higher Secondary Certificate (HSC) (2020 - 2022)
-                    Dattakala Group of Institutions, Pune
-                    Percentage: 80%</li>
-                <li>Secondary School Certificate (SSC - CBSE) (2019 - 2020)
-                    Podar International School, Chinchwad
-                    Percentage: 75%</li>
-                <h2 data-aos="fade-right">Skills</h2>
-                <ul data-aos="fade-left">
-                    <li>Programming Languages: Python (NumPy, Pandas, Seaborn, Scikit-learn), R, SQL, HTML, CSS</li>
-                    <li>Data Visualization: Power BI, Tableau, Matplotlib, Seaborn</li>
-                    <li>Machine Learning & AI: Supervised & Unsupervised Learning, NLP (TensorFlow, NLTK), Computer
-                        Vision (OpenCV)</li>
-                    <li>Web Development: HTML, CSS(beginner)</li>
-                    <li>Tools: Git, Jupyter Notebook, Google Colab</li>
-                    <li>Soft Skills: Communication, Teamwork, Problem-solving</li>
-                </ul>
-        </section>
-        <hr>
-        <section id="about" class="section">
-            <h1 data-aos="fade-up">Project</h1>
-            <div class="scroll-container" id="scrollContainer">
-                <div class="project-card">
-                    <div class="project-title">Super Store Sales Dashboard</div>
-                    <div class="project-desc">Power BI dashboard with time series forecasting.</div>
-                    <a href="https://github.com/Digvijaycode/Super-Store-Dashboard" target="_blank"
-                        class="project-link">GitHub Repo</a>
-                </div>
-                <div class="project-card">
-                    <div class="project-title">Real-Time Face Privacy</div>
-                    <div class="project-desc">Face detection and privacy protection using deep learning.</div>
-                    <a href="https://github.com/Digvijaycode/Real-TIME-FACE-PRIVECY" target="_blank"
-                        class="project-link">GitHub Repo</a>
-                </div>
-                <div class="project-card">
-                    <div class="project-title">Real-Time Air Canvas</div>
-                    <div class="project-desc">Hand gesture-based digital drawing system.</div>
-                    <a href="https://github.com/Digvijaycode/hand-air-canvas-" target="_blank"
-                        class="project-link">GitHub
-                        Repo</a>
-                </div>
-                <div class="project-card">
-                    <div class="project-title">College Admission Prediction</div>
-                    <div class="project-desc">Random Forest-based college admission predictor.</div>
-                    <a href="https://github.com/Digvijaycode/collage-prediction-system-using-ml" target="_blank"
-                        class="project-link">GitHub Repo</a>
-                </div>
+      <!-- BRAND -->
+      <div class="left">Digvijay's Portfolio</div>
 
-                <!-- Duplicate these cards to create infinite seamless scrolling -->
-                <div class="project-card">
-                    <div class="project-title">Super Store Sales Dashboard</div>
-                    <div class="project-desc">Power BI dashboard with time series forecasting.</div>
-                    <a href="https://github.com/Digvijaycode/Super-Store-Dashboard" target="_blank"
-                        class="project-link">GitHub Repo</a>
-                </div>
-                <div class="project-card">
-                    <div class="project-title">Real-Time Face Privacy</div>
-                    <div class="project-desc">Face detection and privacy protection using deep learning.</div>
-                    <a href="https://github.com/Digvijaycode/Real-TIME-FACE-PRIVECY" target="_blank"
-                        class="project-link">GitHub Repo</a>
-                </div>
-                <div class="project-card">
-                    <div class="project-title">Real-Time Air Canvas</div>
-                    <div class="project-desc">Hand gesture-based digital drawing system.</div>
-                    <a href="https://github.com/Digvijaycode/hand-air-canvas-" target="_blank"
-                        class="project-link">GitHub
-                        Repo</a>
-                </div>
-                <div class="project-card">
-                    <div class="project-title">College Admission Prediction</div>
-                    <div class="project-desc">Random Forest-based college admission predictor.</div>
-                    <a href="https://github.com/Digvijaycode/collage-prediction-system-using-ml" target="_blank"
-                        class="project-link">GitHub Repo</a>
-                </div>
-            </div>
-        </section>
+      <!-- CONTROLS -->
+      <div class="menu-right-wrap">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <span id="themeIcon" aria-hidden="true">🌗</span>
+          <span id="themeLabel" style="font-weight:700;">Auto</span>
+        </button>
+        <div class="menu-toggle" aria-label="Toggle menu" role="button" tabindex="0">&#9776;</div>
+      </div>
 
+      <!-- RIGHT: full list (includes mobile copies of top links) -->
+      <div class="right">
+        <ul>
+          <li class="hide-desktop"><a href="#home" onclick="closeMenu()">Home</a></li>
+          <li class="hide-desktop"><a href="#about" onclick="closeMenu()">About</a></li>
+          <li class="hide-desktop"><a href="#projects" onclick="closeMenu()">Projects</a></li>
 
-        <hr>
-        <section id="resume" class="section">
-            <h1 data-aos="fade-up">Resume</h1>
-            <p class="resume-content" data-aos="fade-up">You can download my resume by clicking the button below:</p>
-            <button class="button" onclick="downloadResume()" data-tooltip="Download Resume">Download</button>
-        </section>
-        <hr>
-        <section id="contact" class="section">
-            <h1 data-aos="fade-up">Contact Me</h1>
-            <div data-aos="fade-up">
-                <section id="contact" class="contact-section">
-                    <h2>Contact Me</h2>
-                    <form id="contactForm" autocomplete="off">
-                        <label for="name">Your Name</label>
-                        <input type="text" id="name" name="name" required placeholder="Enter your name">
+          <li><a href="#resume" onclick="closeMenu()">Resume</a></li>
+          <li><a href="#contact" onclick="closeMenu()">Contact Me</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
 
-                        <label for="email">Your Email</label>
-                        <input type="email" id="email" name="email" required placeholder="Enter your email">
+  <main>
+    <!-- HOME -->
+    <section id="home" class="firstSection">
+      <div class="leftSection" data-aos="fade-right">
+        Hi, my name is <span class="purple">Digvijay</span>
+        <div>and I am a passionate <span id="element"></span> Student From Savitribai Phule Pune University</div>
+      </div>
+      <div class="rightSection" data-aos="fade-left" id="heroVisual">
+        <img src="bg1.png" alt="Hero">
+      </div>
+    </section>
 
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" required placeholder="Type your message"></textarea>
+    <hr/>
 
-                        <button type="submit">Send Message</button>
-                        <div id="formStatus"></div>
-                    </form>
-                </section>
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <span class="liquid" aria-hidden="true"></span>
+      <h1 data-aos="fade-up">About</h1>
 
-                <h2>Social Media</h2>
-                <p><a href="https://www.linkedin.com/in/digvijay-hande-1bb538264/" target="blank">
-                        <img src="L_logo.webp" alt="LinkedIn" width="60">
-                        <a href="https://github.com/Digvijaycode" target="_blank">
-                            <img src="gitlogo.png" alt="GitHub" width="50">
-                            <a href="https://www.instagram.com/digvijay_hande_07/" target="_blank">
-                                <img src="instalogo.jpg" alt="Instagram" width="50">
-                            </a>
-                        </a></p>
-            </div>
-        </section>
-    </main>
+      <h2 data-aos="fade-right">Academic Background</h2>
+      <p data-aos="fade-left">
+        I am currently a third-year BSc Data Science student at the Department of Technology, Savitribai Phule Pune University. About Me
+        I am a highly motivated BSc Data Science student with a strong foundation in machine learning, data analysis,
+        and visualization. I am passionate about leveraging data-driven insights to solve real-world problems.
+        With hands-on experience in Python, SQL, Power BI, and machine learning algorithms,
+        I have worked on various projects related to predictive modeling, computer vision, and AI-powered
+        applications.
+        My goal is to continuously learn and apply cutting-edge technologies to create impactful solutions.
+      </p>
 
+      <h2 data-aos="fade-right">Education</h2>
+      <ul data-aos="fade-left">
+        <li>B.Sc. in Data Science (2022 - 2025)
+          Savitribai Phule Pune University, Department of Technology
+          GPA: 8.07</li>
+        <li>Higher Secondary Certificate (HSC) (2020 - 2022)
+          Dattakala Group of Institutions, Pune
+          Percentage: 80%</li>
+        <li>Secondary School Certificate (SSC - CBSE) (2019 - 2020)
+          Podar International School, Chinchwad
+          Percentage: 75%</li>
+      </ul>
 
+      <h2 data-aos="fade-right">Skills</h2>
+      <ul data-aos="fade-left">
+        <li>Programming Languages: Python (NumPy, Pandas, Seaborn, Scikit-learn), R, SQL, HTML, CSS</li>
+        <li>Data Visualization: Power BI, Tableau, Matplotlib, Seaborn</li>
+        <li>Machine Learning & AI: Supervised & Unsupervised Learning, NLP (TensorFlow, NLTK), Computer
+            Vision (OpenCV)</li>
+        <li>Web Development: HTML, CSS(beginner)</li>
+        <li>Tools: Git, Jupyter Notebook, Google Colab</li>
+        <li>Soft Skills: Communication, Teamwork, Problem-solving</li>
+      </ul>
+    </section>
 
-    <!-- Project Modal Popup -->
-    <div id="projectModal" style="display:none;">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h2 id="modalTitle"></h2>
-            <p id="modalDesc"></p>
-            <video id="modalVideo" width="100%" controls style="display:none;"></video>
-            <a id="modalLink" href="#" target="_blank">View GitHub Repo</a>
+    <hr/>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section">
+      <span class="liquid" aria-hidden="true" style="top:auto; bottom:-100px; left:-60px; right:auto;"></span>
+      <h1 data-aos="fade-up">Project</h1>
+
+      <div class="scroll-container" id="scrollContainer">
+        <div class="project-card" data-tilt>
+          <div class="project-title">Super Store Sales Dashboard</div>
+          <div class="project-desc">Power BI dashboard with time series forecasting.</div>
+          <a href="https://github.com/Digvijaycode/Super-Store-Dashboard" target="_blank" class="project-link" rel="noopener">GitHub Repo</a>
         </div>
+        <div class="project-card" data-tilt>
+          <div class="project-title">Real-Time Face Privacy</div>
+          <div class="project-desc">Face detection and privacy protection using deep learning.</div>
+          <a href="https://github.com/Digvijaycode/Real-TIME-FACE-PRIVECY" target="_blank" class="project-link" rel="noopener">GitHub Repo</a>
+        </div>
+        <div class="project-card" data-tilt>
+          <div class="project-title">Real-Time Air Canvas</div>
+          <div class="project-desc">Hand gesture-based digital drawing system.</div>
+          <a href="https://github.com/Digvijaycode/hand-air-canvas-" target="_blank" class="project-link" rel="noopener">GitHub Repo</a>
+        </div>
+        <div class="project-card" data-tilt>
+          <div class="project-title">College Admission Prediction</div>
+          <div class="project-desc">Random Forest-based college admission predictor.</div>
+          <a href="https://github.com/Digvijaycode/collage-prediction-system-using-ml" target="_blank" class="project-link" rel="noopener">GitHub Repo</a>
+        </div>
+
+        <!-- duplicates kept for your infinite-scroll effect -->
+        <div class="project-card" data-tilt>
+          <div class="project-title">Super Store Sales Dashboard</div>
+          <div class="project-desc">Power BI dashboard with time series forecasting.</div>
+          <a href="https://github.com/Digvijaycode/Super-Store-Dashboard" target="_blank" class="project-link" rel="noopener">GitHub Repo</a>
+        </div>
+        <div class="project-card" data-tilt>
+          <div class="project-title">Real-Time Face Privacy</div>
+          <div class="project-desc">Face detection and privacy protection using deep learning.</div>
+          <a href="https://github.com/Digvijaycode/Real-TIME-FACE-PRIVECY" target="_blank" class="project-link" rel="noopener">GitHub Repo</a>
+        </div>
+        <div class="project-card" data-tilt>
+          <div class="project-title">Real-Time Air Canvas</div>
+          <div class="project-desc">Hand gesture-based digital drawing system.</div>
+          <a href="https://github.com/Digvijaycode/hand-air-canvas-" target="_blank" class="project-link" rel="noopener">GitHub Repo</a>
+        </div>
+        <div class="project-card" data-tilt>
+          <div class="project-title">College Admission Prediction</div>
+          <div class="project-desc">Random Forest-based college admission predictor.</div>
+          <a href="https://github.com/Digvijaycode/collage-prediction-system-using-ml" target="_blank" class="project-link" rel="noopener">GitHub Repo</a>
+        </div>
+      </div>
+    </section>
+
+    <hr/>
+
+    <!-- RESUME -->
+    <section id="resume" class="section">
+      <span class="liquid" aria-hidden="true" style="right:-40px; top:-60px;"></span>
+      <h1 data-aos="fade-up">Resume</h1>
+      <p class="resume-content" data-aos="fade-up">You can download my resume by clicking the button below:</p>
+      <button class="button" id="magnetButton" onclick="downloadResume()">Download</button>
+    </section>
+
+    <hr/>
+
+    <!-- CONTACT (Polished + Working) -->
+    <section id="contact" class="section">
+      <span class="liquid" aria-hidden="true" style="left:-50px; bottom:-70px;"></span>
+      <h1 data-aos="fade-up">Contact Me</h1>
+      <p class="subtle" data-aos="fade-up">Have a project, collaboration, or opportunity in mind? Send a note below.</p>
+
+      <div class="contact-card" data-aos="fade-up">
+        <form id="contactForm" autocomplete="off" novalidate>
+          <div class="form-row">
+            <div>
+              <label for="name" class="label">Your Name</label>
+              <input type="text" id="name" name="name" class="input" required placeholder="Enter your name" />
+            </div>
+            <div>
+              <label for="email" class="label">Your Email</label>
+              <input type="email" id="email" name="email" class="input" required placeholder="Enter your email" />
+            </div>
+          </div>
+
+          <label for="message" class="label">Message</label>
+          <textarea id="message" name="message" class="textarea" required placeholder="Type your message"></textarea>
+
+          <button type="submit" id="submitBtn" class="btn-primary" aria-live="polite">
+            <span class="btn-label">Send Message</span>
+          </button>
+          <div id="formStatus" class="status" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+
+      <h2 style="text-align:center; margin: 18px 0 8px;">Social Media</h2>
+      <div class="social-wrap" aria-label="Social media links">
+        <a class="social-btn" href="https://www.linkedin.com/in/digvijay-hande-1bb538264/"
+           target="_blank" rel="noopener" aria-label="LinkedIn">
+          <img src="L_logo.webp" alt="LinkedIn icon">
+        </a>
+        <a class="social-btn" href="https://github.com/Digvijaycode"
+           target="_blank" rel="noopener" aria-label="GitHub">
+          <img src="gitlogo.png" alt="GitHub icon">
+        </a>
+        <a class="social-btn" href="https://www.instagram.com/digvijay_hande_07/"
+           target="_blank" rel="noopener" aria-label="Instagram">
+          <img src="insta.png" alt="Instagram icon">
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Project Modal -->
+  <div id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+    <div class="modal-content">
+      <span class="close-btn" aria-label="Close modal">&times;</span>
+      <h2 id="modalTitle"></h2>
+      <p id="modalDesc"></p>
+      <video id="modalVideo" width="100%" controls style="display:none;"></video>
+      <a id="modalLink" href="#" target="_blank" rel="noopener">View GitHub Repo</a>
     </div>
+  </div>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 1200,
-        });
+  <!-- AOS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <!-- Typed.js -->
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-        function downloadResume() {
-            let resumeUrl = 'https://docs.google.com/document/d/1gRLFH2lfh1l0bdjSCw33-cxseV2nWjQS/edit?usp=sharing&ouid=107636425094332790146&rtpof=true&sd=true'; // Replace with your actual Google Drive file ID
-            let link = document.createElement('a');
-            link.href = resumeUrl;
-            link.setAttribute('download', 'Digvijay_Hande_Resume.docx');
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+  <script>
+    // AOS
+    AOS.init({ duration: 900, once: true });
+
+    // Typed (keeps your original wording; the bold "Da" style is handled by the typewriter word)
+    var typed = new Typed('#element', {
+      strings: ['Data Science', 'Machine Learning ', 'Data Analyst', 'Python ', 'AI Enthusiast'],
+      typeSpeed: 32, backSpeed: 44, loop: true
+    });
+
+    // Theme system: auto/light/dark with persistence
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeLabel = document.getElementById('themeLabel');
+    const rootHtml = document.documentElement;
+
+    function applyTheme(mode) {
+      if (mode === 'auto') {
+        rootHtml.setAttribute('data-theme', 'auto');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        themeIcon.textContent = '🌗';
+        themeLabel.textContent = 'Auto';
+        document.body.classList.toggle('dark-applied', prefersDark);
+      } else if (mode === 'light') {
+        rootHtml.setAttribute('data-theme', 'light');
+        themeIcon.textContent = '🌞';
+        themeLabel.textContent = 'Light';
+      } else {
+        rootHtml.setAttribute('data-theme', 'dark');
+        themeIcon.textContent = '🌙';
+        themeLabel.textContent = 'Dark';
+      }
+      localStorage.setItem('theme-mode', mode);
+      document.body.offsetHeight;
+    }
+
+    const saved = localStorage.getItem('theme-mode') || 'auto';
+    applyTheme(saved);
+
+    themeToggle.addEventListener('click', () => {
+      const current = localStorage.getItem('theme-mode') || 'auto';
+      const next = current === 'auto' ? 'light' : current === 'light' ? 'dark' : 'auto';
+      applyTheme(next);
+    });
+
+    const mql = window.matchMedia('(prefers-color-scheme: dark)');
+    mql.addEventListener('change', () => {
+      const mode = localStorage.getItem('theme-mode') || 'auto';
+      if (mode === 'auto') applyTheme('auto');
+    });
+
+    // Mobile menu
+    const menuToggle = document.querySelector('.menu-toggle');
+    const rightNav   = document.querySelector('.right');
+    function closeMenu(){ rightNav.classList.remove('active'); }
+    window.closeMenu = closeMenu;
+    if (menuToggle){
+      menuToggle.addEventListener('click', ()=> rightNav.classList.toggle('active'));
+      menuToggle.addEventListener('keypress', (e)=>{
+        if (e.key==='Enter' || e.key===' '){ e.preventDefault(); rightNav.classList.toggle('active'); }
+      });
+    }
+
+    // Hide/show nav on scroll
+    let prevScrollY = window.scrollY;
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', ()=>{
+      const y = window.scrollY;
+      if (y > prevScrollY && y > 80) navbar.classList.add('hidden');
+      else navbar.classList.remove('hidden');
+      prevScrollY = y;
+    });
+
+    // Resume download
+    function downloadResume() {
+      const resumeUrl = 'https://docs.google.com/document/d/1gRLFH2lfh1l0bdjSCw33-cxseV2nWjQS/edit?usp=sharing';
+      const link = document.createElement('a');
+      link.href = resumeUrl; link.target='_blank'; link.rel='noopener';
+      link.setAttribute('download', 'Digvijay_Hande_Resume.docx');
+      document.body.appendChild(link); link.click(); document.body.removeChild(link);
+    }
+    window.downloadResume = downloadResume;
+
+    // Smooth Auto-scroll (time-based, eased) for Projects
+    (function(){
+      const sc = document.getElementById('scrollContainer');
+      if (!sc) return;
+      let isHovered = false;
+      let last = performance.now();
+      let pxPerSecond = 60; // adjust 40–90 for speed preference
+
+      function step(now){
+        const dt = Math.min(40, now - last); // clamp delta for stability
+        last = now;
+        if (!isHovered) {
+          const delta = (pxPerSecond * dt) / 1000;
+          sc.scrollLeft += delta;
+          if (sc.scrollLeft + sc.clientWidth >= sc.scrollWidth - 1) {
+            sc.scrollLeft = 0;
+          }
+        }
+        requestAnimationFrame(step);
+      }
+      sc.addEventListener('mouseenter', ()=> isHovered = true);
+      sc.addEventListener('mouseleave', ()=> isHovered = false);
+      requestAnimationFrame(step);
+    })();
+
+    // Smoother tilt effect for project cards
+    (function(){
+      const tiltCards = document.querySelectorAll('[data-tilt]');
+      tiltCards.forEach(card=>{
+        let raf = null, targetRX = 0, targetRY = 0, rx = 0, ry = 0;
+
+        function render(){
+          rx += (targetRX - rx) * 0.15;
+          ry += (targetRY - ry) * 0.15;
+          card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateY(-2px)`;
+          if (Math.abs(rx - targetRX) > 0.01 || Math.abs(ry - targetRY) > 0.01) {
+            raf = requestAnimationFrame(render);
+          } else {
+            cancelAnimationFrame(raf); raf = null;
+          }
         }
 
+        card.addEventListener('mousemove', (e)=>{
+          const r = card.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width - 0.5;
+          const y = (e.clientY - r.top) / r.height - 0.5;
+          const max = 6;
+          targetRX = -y * max;
+          targetRY =  x * max;
+          if (!raf) raf = requestAnimationFrame(render);
+        });
 
-    </script>
+        card.addEventListener('mouseleave', ()=>{
+          targetRX = 0; targetRY = 0;
+          if (!raf) raf = requestAnimationFrame(render);
+        });
+      });
+    })();
 
-    <!-- AUTO-SCROLL SCRIPT -->
-    <script>
-        const scrollContainer = document.getElementById('scrollContainer');
-        let scrollSpeed = 2.5; // pixels per frame
-        let isHovered = false;
+    // Project modal
+    const projectData = [
+      { title:"Super Store Sales Dashboard", desc:"Power BI dashboard with time series forecasting.", video:"superstore.mp4", link:"https://github.com/Digvijaycode/Super-Store-Dashboard" },
+      { title:"Real-Time Face Privacy", desc:"Face detection and privacy protection using deep learning.", video:"faceprivacy.mp4", link:"https://github.com/Digvijaycode/Real-TIME-FACE-PRIVECY" },
+      { title:"Real-Time Air Canvas", desc:"Hand gesture-based digital drawing system.", video:"aircanvas.mp4", link:"https://github.com/Digvijaycode/hand-air-canvas-" },
+      { title:"College Admission Prediction", desc:"Random Forest-based college admission predictor.", video:"admission.mp4", link:"https://github.com/Digvijaycode/collage-prediction-system-using-ml" }
+    ];
+    document.querySelectorAll('.project-card').forEach((card, idx) => {
+      card.addEventListener('click', () => {
+        const project = projectData[idx % projectData.length];
+        document.getElementById('modalTitle').textContent = project.title;
+        document.getElementById('modalDesc').textContent = project.desc;
+        const modalLink = document.getElementById('modalLink');
+        modalLink.href = project.link;
 
-        function autoScroll() {
-            if (!isHovered) {
-                scrollContainer.scrollLeft += scrollSpeed;
-                // If we've scrolled to the end, reset to start for infinite effect
-                if (scrollContainer.scrollLeft + scrollContainer.offsetWidth >= scrollContainer.scrollWidth) {
-                    scrollContainer.scrollLeft = 0;
-                }
-            }
-            requestAnimationFrame(autoScroll);
+        const video = document.getElementById('modalVideo');
+        if (project.video) {
+          video.src = project.video; video.style.display = 'block';
+          video.load(); video.play().catch(()=>{});
+        } else {
+          video.style.display = 'none'; video.pause(); video.src = '';
         }
+        document.getElementById('projectModal').style.display = 'flex';
+      });
+    });
+    document.querySelector('#projectModal .close-btn').onclick = function () {
+      document.getElementById('projectModal').style.display = 'none';
+      document.getElementById('modalVideo').pause();
+    };
+    window.addEventListener('click', (event)=>{
+      const modal = document.getElementById('projectModal');
+      if (event.target === modal){
+        modal.style.display = 'none';
+        document.getElementById('modalVideo').pause();
+      }
+    });
 
-        // Pause auto-scroll on hover
-        scrollContainer.addEventListener('mouseenter', () => { isHovered = true; });
-        scrollContainer.addEventListener('mouseleave', () => { isHovered = false; });
+    // Magnetic button effect (resume)
+    const magnet = document.getElementById('magnetButton');
+    if (magnet){
+      magnet.addEventListener('mousemove', e => {
+        const rect = magnet.getBoundingClientRect();
+        const x = (e.clientX - rect.left - rect.width/2)/10;
+        const y = (e.clientY - rect.top - rect.height/2)/10;
+        magnet.style.transform = `translate(${x}px, ${y}px)`;
+      });
+      magnet.addEventListener('mouseleave', ()=>{ magnet.style.transform = ''; });
+    }
 
-        autoScroll();
-    </script>
+    // EmailJS Contact form logic (replace keys)
+    emailjs.init({ publicKey: "YOUR_PUBLIC_KEY" });
 
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-    <script>
-        var typed = new Typed('#element', {
-            strings: ['Data Science', 'Machine Learning ', 'Data Analyst', 'Python ', 'AI Enthusiast'],
-            typeSpeed: 30,
-            backSpeed: 50,
-            loop: true
+    const form = document.getElementById('contactForm');
+    const statusEl = document.getElementById('formStatus');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnLabel = submitBtn.querySelector('.btn-label');
+
+    function setLoading(isLoading) {
+      if (isLoading) {
+        submitBtn.disabled = true;
+        btnLabel.innerHTML = '<span class="spinner"></span>Sending...';
+      } else {
+        submitBtn.disabled = false;
+        btnLabel.textContent = 'Send Message';
+      }
+    }
+
+    function validateFields() {
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const message = form.message.value.trim();
+      if (!name || !email || !message) {
+        statusEl.textContent = 'Please fill out all fields.';
+        statusEl.className = 'status error';
+        return false;
+      }
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+      if (!re.test(email)) {
+        statusEl.textContent = 'Please enter a valid email address.';
+        statusEl.className = 'status error';
+        return false;
+      }
+      return { name, email, message };
+    }
+
+    function copyMessageToClipboard(name, email, message) {
+      const text = `Name: ${name}\nEmail: ${email}\nMessage:\n${message}`;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(()=>{
+          statusEl.textContent = 'Couldn’t send right now. Details copied to clipboard — email me manually.';
+          statusEl.className = 'status error';
+        }).catch(()=>{
+          statusEl.textContent = 'Couldn’t send right now. Please try again later.';
+          statusEl.className = 'status error';
         });
-    </script>
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta); ta.select();
+        try {
+          document.execCommand('copy');
+          statusEl.textContent = 'Couldn’t send right now. Details copied to clipboard — email me manually.';
+          statusEl.className = 'status error';
+        } catch {
+          statusEl.textContent = 'Couldn’t send right now. Please try again later.';
+          statusEl.className = 'status error';
+        }
+        document.body.removeChild(ta);
+      }
+    }
 
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      statusEl.textContent = '';
+      statusEl.className = 'status';
+      const data = validateFields();
+      if (!data) return;
 
-
-
-
-    <script>
-        const projectData = [
-            {
-                title: "Super Store Sales Dashboard",
-                desc: "Power BI dashboard with time series forecasting.",
-                video: "superstore.mp4", // Replace with your actual video file path or URL
-                link: "https://github.com/Digvijaycode/Super-Store-Dashboard"
-            },
-            {
-                title: "Real-Time Face Privacy",
-                desc: "Face detection and privacy protection using deep learning.",
-                video: "faceprivacy.mp4",
-                link: "https://github.com/Digvijaycode/Real-TIME-FACE-PRIVECY"
-            },
-            {
-                title: "Real-Time Air Canvas",
-                desc: "Hand gesture-based digital drawing system.",
-                video: "aircanvas.mp4",
-                link: "https://github.com/Digvijaycode/hand-air-canvas-"
-            },
-            {
-                title: "College Admission Prediction",
-                desc: "Random Forest-based college admission predictor.",
-                video: "admission.mp4",
-                link: "https://github.com/Digvijaycode/collage-prediction-system-using-ml"
-            }
-        ];
-
-        document.querySelectorAll('.project-card').forEach((card, idx) => {
-            card.addEventListener('click', () => {
-                // Get the correct project (handles repeats in scroll)
-                const project = projectData[idx % projectData.length];
-                document.getElementById('modalTitle').textContent = project.title;
-                document.getElementById('modalDesc').textContent = project.desc;
-                document.getElementById('modalLink').href = project.link;
-                // Show video if exists
-                const video = document.getElementById('modalVideo');
-                if (project.video) {
-                    video.src = project.video;
-                    video.style.display = '';
-                    video.load();
-                    video.play();
-                } else {
-                    video.style.display = 'none';
-                    video.pause();
-                    video.src = '';
-                }
-                document.getElementById('projectModal').style.display = 'flex';
-            });
+      setLoading(true);
+      try {
+        await emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+          from_name: data.name,
+          from_email: data.email,
+          message: data.message
         });
-
-        // Close modal logic
-        document.querySelector('#projectModal .close-btn').onclick = function () {
-            document.getElementById('projectModal').style.display = 'none';
-            document.getElementById('modalVideo').pause();
-        };
-        window.onclick = function (event) {
-            if (event.target === document.getElementById('projectModal')) {
-                document.getElementById('projectModal').style.display = 'none';
-                document.getElementById('modalVideo').pause();
-            }
-        };
-    </script>
-
-
-
-
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-    <script>
-        (function () {
-            emailjs.init("YOUR_USER_ID"); // Replace with your EmailJS user ID
-        })();
-    </script>
-
-
-    <script>
-        document.getElementById('contactForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-            document.getElementById('formStatus').textContent = "Sending...";
-
-            emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
-                from_name: document.getElementById('name').value,
-                from_email: document.getElementById('email').value,
-                message: document.getElementById('message').value
-            })
-                .then(function (response) {
-                    document.getElementById('formStatus').textContent = "Message sent successfully!";
-                    document.getElementById('contactForm').reset();
-                }, function (error) {
-                    document.getElementById('formStatus').textContent = "Oops! Something went wrong. Please try again.";
-                });
-        });
-    </script>
-
-
-
+        statusEl.textContent = 'Message sent successfully!';
+        statusEl.className = 'status success';
+        form.reset();
+      } catch (err) {
+        copyMessageToClipboard(data.name, data.email, data.message);
+      } finally {
+        setLoading(false);
+      }
+    });
+  </script>
 </body>
-
 </html>
